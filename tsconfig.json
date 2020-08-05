@@ -15,7 +15,7 @@
     "strict": true,
     "removeComments": true,
     "pretty": true,
-    "lib": ["ES5", "ES6"],
+    "lib": ["ES2015"],
     "typeRoots": [
       "./typings"
     ]

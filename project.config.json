@@ -3,10 +3,10 @@
 	"packOptions": {
 		"ignore": []
 	},
-	"miniprogramRoot": "miniprogram/",
+	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
-	"projectname": "order",
+	"projectname": "mp_quick_start",
 	"scripts": {
 		"beforeCompile": "npm run tsc",
 		"beforePreview": "npm run tsc",
