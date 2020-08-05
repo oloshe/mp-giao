@@ -76,7 +76,7 @@ gulp.task('watch', () => {
 // 开发模式
 gulp.task('dev', gulp.series(
     'clean',
-    gulp.parallel('ts', 'less', 'json', 'wxml')),
+    gulp.parallel('ts')),
     'watch',
 )
 

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "CommonJS",
     "target": "ES5",
     "allowJs": false,
@@ -9,20 +9,18 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "alwaysStrict": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
     "removeComments": true,
     "pretty": true,
-    "strictPropertyInitialization": true,
-    "lib": ["ES5"],
+    "lib": ["ES5", "ES6"],
     "typeRoots": [
       "./typings"
     ]
   },
+  
   "include": [
     "src/**/*.ts"
   ],
