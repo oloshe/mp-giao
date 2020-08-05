@@ -1,11 +1,14 @@
 const gulp = require('gulp')
+    , gulpif = require('gulp-if')
     , clean = require('gulp-clean')
     , less = require('gulp-less')
     , mincss = require('gulp-minify-css')
     , rename = require('gulp-rename')
     , ts = require('gulp-typescript')
     , uglifyJS = require('gulp-uglify')
-    , tsProject = ts.createProject('tsconfig.json');
+    , del = require('del')
+    , tsProject = ts.createProject('tsconfig.json')
+    , config = require('./tools/gulp.config.js');
 
 const ts_path = 'src/**/*.ts'
 const less_path = 'src/**/*.less'
@@ -14,7 +17,7 @@ const wxml_path = 'src/**/*.wxml'
 
 // 清空
 gulp.task('clean', () => {
-    return gulp.src('dist', { read: false, allowEmpty: true })
+    return gulp.src('dist/', { read: false, allowEmpty: true })
         .pipe(clean())
 })
 
@@ -22,7 +25,7 @@ gulp.task('clean', () => {
 gulp.task('ts', () => {
     return gulp.src(ts_path)
         .pipe(tsProject())
-        .js.pipe(uglifyJS()) // 压缩js
+        .js.pipe(gulpif(config.minjs, uglifyJS())) // 压缩js
         .pipe(gulp.dest('dist'))
 })
 
@@ -30,7 +33,7 @@ gulp.task('ts', () => {
 gulp.task('less', () => {
     return gulp.src(less_path)
         .pipe(less())
-        .pipe(mincss()) // 压缩css
+        .pipe(gulpif(config.mincss, mincss())) // 压缩css
         .pipe(rename(path => {
             path.extname = '.wxss'
         }))
@@ -49,11 +52,33 @@ gulp.task('wxml', () => {
         .pipe(gulp.dest('dist'))
 })
 
-// 监听json
-// gulp.task('watch-json', gulp.watch())
+// 监听
+gulp.task('watch', () => {
+    // // ts
+    // gulp.watch(ts_path, gulp.series('ts'))
+    // // less
+    // gulp.watch(less_path,{ events: ['change'] }, gulp.series('less'))
+    // // json
+    // gulp.watch(json_path,{ events: ['change'] }, gulp.series('json'))
+    // // less
+    // gulp.watch(wxml_path, { events: ['change'] }, gulp.series('wxml'))
+    
+    // 监听删除事件
+    // watch('src/', (e) => {
+    //     console.log(e)
+    // })
+    // gulp.watch('src/', { events: ['unlink'] }).on('change', (path) => {
+    //     console.log(path)
+    //     del()
+    // })
+})
 
 // 开发模式
-gulp.task('dev', gulp.series('clean', gulp.parallel('ts', 'less', 'json', 'wxml')))
+gulp.task('dev', gulp.series(
+    'clean',
+    gulp.parallel('ts', 'less', 'json', 'wxml')),
+    'watch',
+)
 
 // 生产模式
 gulp.task('default', gulp.series('dev'))
