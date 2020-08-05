@@ -1,0 +1,27 @@
+{
+  "name": "miniprogram-ts-quickstart",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "compile": "./node_modules/typescript/bin/tsc",
+    "tsc": "node ./node_modules/typescript/lib/tsc.js",
+    "build": "gulp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@types/wechat-miniprogram": "^2.11.0",
+    "gulp-clean": "^0.4.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-less": "^4.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^2.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
+    "miniprogram-api-typings": "^2.12.0",
+    "typescript": "^3.3.3333"
+  }
+}
