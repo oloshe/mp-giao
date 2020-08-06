@@ -1,17 +1,27 @@
 {
   "name": "miniprogram-ts-quickstart",
   "version": "1.0.0",
-  "description": "",
+  "description": "微信小程序Typescript快速启动项目",
   "scripts": {
     "compile": "./node_modules/typescript/bin/tsc",
     "tsc": "node ./node_modules/typescript/lib/tsc.js",
-    "build": "gulp",
-    "dev": "gulp watch",
-    "lint": "eslint src/**/*.ts"
+    "build": "./node_modules/.bin/gulp",
+    "dev": "./node_modules/.bin/gulp watch",
+    "lint": "./node_modules/.bin/eslint src/**/*.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "",
+  "keywords": [
+    "miniprogram",
+    "typescript",
+    "less",
+    "gulp"
+  ],
+  "author": "Jacob.Jiang",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/oloshe/mp_quick_start"
+  },
   "dependencies": {},
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",

@@ -57,7 +57,7 @@
 			"\t\t\t",
 			"\t\t},",
 			"",
-			"\t\tonPageScroll(res: WechatMiniprogram.Page.IResizeOption) {",
+			"\t\tonResize(res: WechatMiniprogram.Page.IResizeOption) {",
 			"\t\t\t",
 			"\t\t},",
 			"\t}",

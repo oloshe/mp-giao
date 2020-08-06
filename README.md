@@ -75,7 +75,7 @@ Component<IData, {}, IMethod>({
       
     },
 
-    onPageScroll(res: WechatMiniprogram.Page.IResizeOption) {
+    onResize(res: WechatMiniprogram.Page.IResizeOption) {
       
     },
   }
@@ -138,9 +138,11 @@ Component<IData, IProperty, IMethod>({
       
     },
   },
+
   methods: {
     
   }
+
 })
 
 ```
