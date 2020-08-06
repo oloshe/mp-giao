@@ -18,13 +18,3 @@ const formatNumber = (n: number) => {
   return s[1] ? s : '0' + s
 }
 
-type Hooks = [
-  String,
-  (arg: any) => void,
-]
-
-export const useStorage = (key: string): Hooks => {
-  const value = wx.getStorageSync(key)
-  const fn = (data: any) => wx.setStorageSync(key, data)
-  return [value, fn]
-}
