@@ -18,4 +18,3 @@ const formatNumber = (n: number) => {
   return s[1] ? s : '0' + s
 }
 
-  
