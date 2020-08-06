@@ -32,7 +32,7 @@ interface IMethod extends WechatMiniprogram.Component.MethodOption {
   
 }
 
-Component<IData, {, IMethod>({
+Component<IData, {}, IMethod>({
 
   behaviors: [],
 

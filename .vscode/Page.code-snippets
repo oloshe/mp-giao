@@ -14,7 +14,7 @@
 			"\t$3",
 			"}",
 			"",
-			"Component<IData, {, IMethod>({",
+			"Component<IData, {}, IMethod>({",
 			"",
 			"\tbehaviors: [],",
 			"",
