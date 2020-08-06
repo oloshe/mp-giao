@@ -15,12 +15,12 @@
     "strict": true,
     "removeComments": true,
     "pretty": true,
-    "lib": ["ES2015"],
+    "lib": ["ES2015", "ES2016", "ES2017"],
     "typeRoots": [
       "./typings"
-    ]
+    ],
   },
-  
+  "files": ["global.d.ts"],
   "include": [
     "src/**/*.ts"
   ],

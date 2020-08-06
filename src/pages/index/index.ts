@@ -1,6 +1,6 @@
-// index.ts
+export { }
+import "../../../global"
 // 获取应用实例
-export {}
 const app = getApp<IAppOption>()
 
 Page({

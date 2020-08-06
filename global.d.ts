@@ -1,6 +1,6 @@
-/// <reference path="./types/index.d.ts" />
+// 在这里定义小程序全局会使用到的类型
 
-interface IAppOption {
+declare interface IAppOption {
   globalData: {
     userInfo?: WechatMiniprogram.UserInfo,
   }
