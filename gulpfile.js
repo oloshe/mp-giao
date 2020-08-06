@@ -8,16 +8,17 @@ const gulp = require('gulp')
     , ts = require('gulp-typescript')
     , imagemin = require('gulp-imagemin')
     , uglifyJS = require('gulp-uglify')
-    , del = require('del')
+    // , del = require('del')
     , tsProject = ts.createProject('tsconfig.json')
-    , config = require('./tools/gulp.config.js');
+    , config = require('./tools/gulp.config.js')
 
-const ts_path = 'src/**/*.ts'
-const less_path = 'src/**/*.less'
-const json_path = 'src/**/*.json'
-const wxml_path = 'src/**/*.wxml'
-const img_path = 'src/**/*.{png,jpg,gif}'
-const dist = 'dist'
+    // path
+    , ts_path = 'src/**/*.ts'
+    , less_path = 'src/**/*.less'
+    , json_path = 'src/**/*.json'
+    , wxml_path = 'src/**/*.wxml'
+    , img_path = 'src/**/*.{png,jpg,gif}'
+    , dist = 'dist'
 
 // 清空
 gulp.task('clean', () => {
@@ -60,18 +61,18 @@ gulp.task('wxml', () => {
         .pipe(gulp.dest(dist))
 })
 
-//图片压缩(只改动有变动的文件）
-gulp.task("img", () => {
-	return gulp
-		.src(img_path)
-		.pipe(changed(dist))
-		.pipe(
-			imagemin({
-				progressive: true,
-			})
-		)
-		.pipe(gulp.dest(dist));
-});
+// 图片压缩(只改动有变动的文件）
+gulp.task('img', () => {
+    return gulp
+        .src(img_path)
+        .pipe(changed(dist))
+        .pipe(
+            imagemin({
+                progressive: true,
+            })
+        )
+        .pipe(gulp.dest(dist))
+})
 
 
 // 开发模式
@@ -95,9 +96,9 @@ gulp.task('watch', () => {
     // gulp.watch(json_path,{ events: ['change'] }, gulp.series('json'))
     // // less
     // gulp.watch(wxml_path, { events: ['change'] }, gulp.series('wxml'))
-    
+
     gulp.watch('src/', {
         ignoreInitial: false,
-        events: ["change", "unlink"]
+        events: ['change', 'unlink']
     }, gulp.series('dev'))
 })

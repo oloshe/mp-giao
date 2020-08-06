@@ -1,0 +1,95 @@
+env:
+  browser: true
+  commonjs: true
+  es2020: true
+extends:
+  - google
+  - eslint:recommended
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 11
+plugins:
+  - '@typescript-eslint'
+globals:
+  wx: true
+  getApp: true
+  App: true
+  Page: true
+  Component: true
+  Behavior: true
+rules: 
+  '@typescript-eslint/consistent-type-definitions': 
+    - error
+    - 'interface'
+  # 强制函数中的变量要么一起声明要么分开声明
+  one-var: 0
+  # 强制使用一致的缩进
+  indent:
+    - 0
+    - tab
+  # 使用 let 或 const 而不是 var
+  no-var: 2
+  # 要求使用 isNaN() 检查 NaN
+  use-isnan: 2
+  # 禁止使用多个空格
+  no-multi-spaces: 2
+  # 禁止在循环中出现 await
+  no-await-in-loop: 2
+  # 强制使用一致的换行符风格
+  linebreak-style: 0
+  # 强制使用一致的逗号风格
+  comma-style: 0
+  # 要求或禁止文件末尾保留一行空行 
+  eol-last: 0
+  # 要求或禁止使用拖尾逗号
+  comma-dangle: 
+    - 2
+    - only-multiline
+  # 分号
+  semi: 
+    - 2
+    - never
+    # 忽略花括号在同一行（内容也就在同一行了）的语句块中的最后一个分号
+    # - omitLastInOneLineBlock: true
+  # 禁止不必要的分号
+  no-extra-semi: 2
+  # 禁止 this 关键字出现在类和类对象之外
+  no-invalid-this: 2
+  # 禁止将 undefined 作为标识符
+  no-undefined: 2
+  # 禁止出现未使用过的变量
+  no-unused-vars: 2
+  # 禁止在变量定义之前使用它们
+  no-use-before-define: 0
+  # 禁止调用 require 时使用 new 操作符
+  no-new-require: 2
+  # 在代码块中开括号前和闭括号后有空格
+  block-spacing: 1
+  # 强制在花括号中使用一致的空格
+  object-curly-spacing:
+    - 2
+    - always
+  # 禁止空格和 tab 的混合缩进
+  no-mixed-spaces-and-tabs: 
+    - 2
+    - smart-tabs # 当空格用于对齐时，允许混合制表符和空格
+  # 禁止修改 const 声明的变量
+  no-const-assign: 2
+  # 禁止重复模块导入
+  no-duplicate-imports: 2
+  # 禁止连续赋值
+  no-multi-assign: 2
+  # 禁止出现令人困惑的多行表达式
+  no-unexpected-multiline: 2
+  # 强制使用骆驼拼写法命名约定
+  camelcase: 0
+  # 要求箭头函数的参数使用圆括号
+  arrow-parens:
+    - 2
+    - as-needed
+  # 要求构造函数首字母大写 
+  new-cap: 
+    - 2
+    - capIsNew: false
+
+

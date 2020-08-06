@@ -1,10 +1,10 @@
 export const formatTime = (date: Date) => {
   const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+      , month = date.getMonth() + 1
+      , day = date.getDate()
+      , hour = date.getHours()
+      , minute = date.getMinutes()
+      , second = date.getSeconds()
 
   return (
     [year, month, day].map(formatNumber).join('/') +
@@ -16,4 +16,15 @@ export const formatTime = (date: Date) => {
 const formatNumber = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
+}
+
+type Hooks = [
+  String,
+  (arg: any) => void,
+]
+
+export const useStorage = (key: string): Hooks => {
+  const value = wx.getStorageSync(key)
+  const fn = (data: any) => wx.setStorageSync(key, data)
+  return [value, fn]
 }
