@@ -20,7 +20,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/oloshe/mp_quick_start"
+    "url": "https://gitee.com/oloshe/mp-giao"
   },
   "dependencies": {},
   "devDependencies": {
