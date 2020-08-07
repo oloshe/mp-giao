@@ -1,5 +1,5 @@
-# mp_quick_start
-> **miniprogram quick start project**
+# mp-giao
+> **mp-giao** giao 就完事了
 ## 小程序 Typescript + Less 快速启动项目
 
 > 使用 **Gulp** + **ESLint** 协助开发
@@ -19,8 +19,12 @@
 ## 自定义代码片段
 > 为了加快开发和提供便捷，使用自定义文件夹代码片段文件
 ### Page
-**触发关键词**： `cp`
+**触发关键词**： `giaop`
 #### 代码片段 
+> 小程序的页面也可以视为自定义组件。因而，页面也可以使用 Component 构造器构造
+> 
+> [参考微信官方文档：Component 构造器](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/component.html)
+
 ```Typescript
 export {}
 
@@ -84,7 +88,7 @@ Component<IData, {}, IMethod>({
 ```
 
 ### Component
-**触发关键词**： `cc`
+**触发关键词**： `giaoc`
 #### 代码片段 
 ```Typescript
 export {}

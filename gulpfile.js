@@ -1,6 +1,7 @@
 const gulp = require('gulp')
     , gulpif = require('gulp-if')
     , changed = require('gulp-changed')
+    , newer = require('gulp-newer')
     , clean = require('gulp-clean')
     , less = require('gulp-less')
     , mincss = require('gulp-minify-css')
@@ -30,6 +31,7 @@ gulp.task('clean', () => {
 gulp.task('ts', () => {
     return gulp.src(ts_path)
         .pipe(changed(dist, { extension: '.js' }))
+        .pipe(newer(dist))
         .pipe(tsProject())
         .js.pipe(gulpif(config.minjs, uglifyJS())) // 压缩js
         .pipe(gulp.dest(dist))
@@ -82,7 +84,7 @@ gulp.task('dev', gulp.series(
 )
 
 // 生产模式
-gulp.task('default', gulp.series('dev'))
+gulp.task('default', gulp.series('clean', gulp.parallel('ts', 'less', 'json', 'wxml', 'img')))
 
 
 // 监听

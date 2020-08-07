@@ -2,7 +2,7 @@
 	// Page 页面， 使用Component构造器性能比较好
 	"Page": {
 		"scope": "javascript,typescript",
-		"prefix": "cp",
+		"prefix": "giaop",
 		"body": [
 			"export {}",
 			"",

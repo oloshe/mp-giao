@@ -6,7 +6,7 @@
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
-	"projectname": "mp_quick_start",
+	"projectname": "mp-giao",
 	"scripts": {
 		"beforeCompile": "npm run tsc",
 		"beforePreview": "npm run tsc",

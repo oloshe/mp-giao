@@ -1,10 +1,15 @@
-/**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 20rpx;
-  box-sizing: border-box;
+// 定义20rpx到40rpx的字体样式
+.ft(20,40,2);
+.ft(@min, @max, @step) when (@min < @max) {
+  .ft@{min}{
+    font-size: @min * 1rpx;
+  }
+  .ft(@min + @step, @max, @step)
+}
+
+.c(1);
+.c(@i){
+  .c-@{i}{
+    color: '#@{i}@{i}@{i}';
+  }
 }

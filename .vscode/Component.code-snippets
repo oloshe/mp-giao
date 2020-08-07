@@ -1,8 +1,8 @@
 {
-	// 组件
+	// Component组件
 	"Page": {
 		"scope": "javascript,typescript",
-		"prefix": "cc",
+		"prefix": "giaoc",
 		"body": [
 			"export {}",
 			"",
