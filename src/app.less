@@ -1,15 +1,267 @@
-// 定义20rpx到40rpx的字体样式
-.ft(20,40,2);
+//----------------------【字体】-----------------------------------
+.ft(20, 40, 2);
+
 .ft(@min, @max, @step) when (@min < @max) {
-  .ft@{min}{
+  .ft@{min} {
     font-size: @min * 1rpx;
   }
+
   .ft(@min + @step, @max, @step)
 }
 
-.c(1);
-.c(@i){
-  .c-@{i}{
-    color: '#@{i}@{i}@{i}';
+//----------------------【颜色】-----------------------------------
+@colors: #000, #111, #222, #333, #444, #555, #666, #777, #888, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff;
+.colorLoop(0);
+.bgLoop(0);
+
+.colorLoop(@i) when (@i < length(@colors)) {
+  .color_define(@i, extract(@colors, @i + 1));
+  .colorLoop(@i + 1);
+
+}
+
+.bgLoop(@i) when (@i < length(@colors)) {
+  .bg_define(@i, extract(@colors, @i + 1));
+  .bgLoop(@i + 1);
+}
+
+.color_define(@i, @color) {
+  .clr@{i} {
+    color: @color;
   }
+}
+
+.bg_define(@i, @color) {
+  .bg@{i} {
+    background-color: @color;
+  }
+}
+
+//----------------------【布局】-----------------------------------
+[class*="flex-"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-around {
+  justify-content: space-around;
+}
+
+.flex-evenly {
+  justify-content: space-evenly;
+}
+//----------------------【其他】-----------------------------------
+.radius{
+  border-radius: 6rpx;
+}
+.round{
+  border-radius: 20rpx;
+}
+.ophover:active{
+  opacity: .6;
+}
+// 细下边框
+.tiny-border{
+  position: relative;
+}
+.tiny-border::after{
+  position: absolute; 
+  content: '';
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #e3e5e9;
+  -webkit-transform: scale(1, 0.5);
+  transform: scale(1, 0.5);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+//----------------------【ColorUI 部分样式】-----------------------------------
+page {
+  /* 标准色 */
+  --red: #e54d42;
+  --orange: #f37b1d;
+  --yellow: #fbbd08;
+  --olive: #8dc63f;
+  --green: #39b54a;
+  --cyan: #1cbbb4;
+  --blue: #0081ff;
+  --purple: #6739b6;
+  --mauve: #9c26b0;
+  --pink: #e03997;
+  --brown: #a5673f;
+  --grey: #8799a3;
+  --black: #333333;
+  --darkGray: #666666;
+  --gray: #aaaaaa;
+  --ghostWhite: #f1f1f1;
+  --white: #ffffff;
+  --pure: #f8f8f8;
+  /* 浅色 */
+  --redLight: #fadbd9;
+  --orangeLight: #fde6d2;
+  --yellowLight: #fef2ce;
+  --oliveLight: #e8f4d9;
+  --greenLight: #d7f0db;
+  --cyanLight: #d2f1f0;
+  --blueLight: #cce6ff;
+  --purpleLight: #e1d7f0;
+  --mauveLight: #ebd4ef;
+  --pinkLight: #f9d7ea;
+  --brownLight: #ede1d9;
+  --greyLight: #e7ebed;
+}
+
+.bg-red {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.bg-orange {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.bg-yellow {
+  background-color: var(--yellow);
+  color: var(--black);
+}
+
+.bg-olive {
+  background-color: var(--olive);
+  color: var(--white);
+}
+
+.bg-green {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.bg-cyan {
+  background-color: var(--cyan);
+  color: var(--white);
+}
+
+.bg-blue {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.bg-purple {
+  background-color: var(--purple);
+  color: var(--white);
+}
+
+.bg-mauve {
+  background-color: var(--mauve);
+  color: var(--white);
+}
+
+.bg-pink {
+  background-color: var(--pink);
+  color: var(--white);
+}
+
+.bg-brown {
+  background-color: var(--brown);
+  color: var(--white);
+}
+
+.bg-grey {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+.bg-gray {
+  background-color: #f0f0f0;
+  color: var(--black);
+}
+
+.bg-black {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.bg-white {
+  background-color: var(--white);
+  color: var(--darkGray);
+}
+
+.shadow-yellowLight {
+  box-shadow: var(--ShadowSize)var(--yellowLight);
+}
+
+.shadow[class*="-red"] {
+  box-shadow: var(--ShadowSize) var(--redShadow);
+}
+
+.shadow[class*="-orange"] {
+  box-shadow: var(--ShadowSize) var(--orangeShadow);
+}
+
+.shadow[class*="-yellow"] {
+  box-shadow: var(--ShadowSize) var(--yellowShadow);
+}
+
+.shadow[class*="-olive"] {
+  box-shadow: var(--ShadowSize) var(--oliveShadow);
+}
+
+.shadow[class*="-green"] {
+  box-shadow: var(--ShadowSize) var(--greenShadow);
+}
+
+.shadow[class*="-cyan"] {
+  box-shadow: var(--ShadowSize) var(--cyanShadow);
+}
+
+.shadow[class*="-blue"] {
+  box-shadow: var(--ShadowSize) var(--blueShadow);
+}
+
+.shadow[class*="-purple"] {
+  box-shadow: var(--ShadowSize) var(--purpleShadow);
+}
+
+.shadow[class*="-mauve"] {
+  box-shadow: var(--ShadowSize) var(--mauveShadow);
+}
+
+.shadow[class*="-pink"] {
+  box-shadow: var(--ShadowSize) var(--pinkShadow);
+}
+
+.shadow[class*="-brown"] {
+  box-shadow: var(--ShadowSize) var(--brownShadow);
+}
+
+.shadow[class*="-grey"] {
+  box-shadow: var(--ShadowSize) var(--greyShadow);
+}
+
+.shadow[class*="-gray"] {
+  box-shadow: var(--ShadowSize) var(--grayShadow);
+}
+
+.shadow[class*="-black"] {
+  box-shadow: var(--ShadowSize) var(--blackShadow);
+}
+
+.shadow[class*="-white"] {
+  box-shadow: var(--ShadowSize) var(--blackShadow);
 }

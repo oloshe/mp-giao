@@ -1,4 +1,9 @@
-export const formatTime = (date: Date) => {
+/**
+ * 
+ * @param date 
+ * @param format 格式 YY-MM-DD hh:mm:ss
+ */
+export const formatTime = (date: Date, format: String) => {
   const year = date.getFullYear()
     , month = date.getMonth() + 1
     , day = date.getDate()
@@ -6,14 +11,21 @@ export const formatTime = (date: Date) => {
     , minute = date.getMinutes()
     , second = date.getSeconds()
 
-  return (
-    [year, month, day].map(formatNumber).join('/') +
-    ' ' +
-    [hour, minute, second].map(formatNumber).join(':')
-  )
+  return format.replace(/yy|yyyy|mm|dd|hh|ss/gi, a => {
+    switch (a) {
+      case 'YY': case 'yy': return fnum(~~(year % 100))
+      case 'YYYY': case 'yyyy': return fnum(year)
+      case 'MM': return fnum(month)
+      case 'mm': return fnum(minute)
+      case 'DD': case 'dd': return fnum(day)
+      case 'HH': case 'hh': return fnum(hour)
+      case 'SS': case 'ss': return fnum(second)
+      default: return ''
+    }
+  })
 }
 
-const formatNumber = (n: number) => {
+const fnum = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
 }
@@ -66,21 +78,7 @@ export function useStorage(context: any, { key, propertyName }: useStorageOption
  * ......
  * })
  */
-export function $(selector: string, context: WechatMiniprogram.Component.Instance<{},{},{}>, isAll?: boolean) {
+export function $(selector: string, context: WechatMiniprogram.Component.Instance<{}, {}, {}>, isAll?: boolean) {
   const query = context.createSelectorQuery()
   return isAll ? query.selectAll(selector) : query.select(selector)
-}
-
-/**
- * 执行 selectQuery 的exec方法，并返回Promise
- * @param selectQuery 查询节点信息的对象
- * @example
- * $$($('#dialog', this).boundingClientRect()).then(res => {
- * ......
- * })
- */
-export function $$(selectQuery: WechatMiniprogram.SelectorQuery) {
-  new Promise(resolve => {
-    selectQuery.exec(resolve)
-  })
 }

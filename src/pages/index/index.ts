@@ -26,7 +26,6 @@ Component<IData, {}, IMethod>({
 
   methods: {
     onLoad() {
-      (this as any).temp = 'asd'
       if (app.globalData.userInfo) {
         this.setData!({
           userInfo: app.globalData.userInfo,
