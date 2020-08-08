@@ -1,4 +1,4 @@
-import "../global"
+/// <reference path="../global.d.ts" />
 
 App<IAppOption>({
   globalData: {},
