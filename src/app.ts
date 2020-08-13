@@ -1,8 +1,10 @@
-import '../global'
+/// <reference path="../global.d.ts" />
 
 App<IAppOption>({
+  // 全局数据
   globalData: {},
 
+  // 系统信息
   systemInfo: wx.getSystemInfoSync(),
 
   onLaunch() {

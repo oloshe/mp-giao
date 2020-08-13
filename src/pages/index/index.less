@@ -1,13 +1,10 @@
-.userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+page{
+    background: var(--ghostWhite);
 }
-
 .userinfo-avatar {
-    width: 128rpx;
-    height: 128rpx;
-    margin: 20rpx;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 10rpx 20rpx;
     border-radius: 50%;
 
     &:active{
@@ -20,5 +17,37 @@
 }
 
 .usermotto {
-    margin-top: 200px;
+    margin: 50rpx 30rpx;
+    text-align: center;
+
+    .txt{
+        font-weight: 100;
+        font-family: Helvetica, sans-serif;
+    }
+}
+
+.ul{
+    margin: 10rpx 30rpx;
+    border-radius: 20rpx;
+    text-align: center;
+    animation: Fade-In .5s ease forwards;
+
+    overflow: hidden;
+    .li{
+        padding: 20rpx;
+        letter-spacing: 10rpx;
+        font-weight: 900;
+        font-style: italic;
+    }
+}
+
+@keyframes Fade-In {
+    0%{
+        opacity: 0;
+        transform: translateX(-50vw);
+    }
+    to{
+        opacity: 1;
+        transform: none;
+    }
 }

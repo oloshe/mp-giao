@@ -5,11 +5,14 @@ const app = getApp<IAppOption>()
 
 export {}
 
-interface IData extends WechatMiniprogram.Component.DataOption {
-  motto: string
+interface IData {
+  title: string
+  desc: string
   userInfo: {}
+  statusBarHeight: number
   hasUserInfo: boolean
   canIUse: boolean
+  intros: Array<{name, path}>
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
@@ -21,10 +24,22 @@ Component<IData, {}, IMethod>({
   behaviors: [],
 
   data: {
-    motto: 'Hello World',
+    title: 'mp-giao',
+    desc: '使用 Typescript + Less 的小程序项目',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    statusBarHeight: app.systemInfo.statusBarHeight,
+    intros: [
+      {
+        name: 'style',
+        path: '/pages/style-demo/index',
+      },
+      {
+        name: 'utils',
+        path: '/pages/utils-demo/index',
+      },
+    ]
   },
 
   methods: {
