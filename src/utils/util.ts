@@ -1,3 +1,6 @@
+import '../../global'
+const app = getApp<IAppOption>()
+
 export const formatTime = (date: Date) => {
   const year = date.getFullYear()
     , month = date.getMonth() + 1
@@ -35,11 +38,18 @@ interface useStorageOption {
  * // 由于上面注册了副作用会自动setData，故无须重复setData
  * this.name = '小阿giao'
  * 
- * useStorage(this.data, { key: 'temp', propertyName: '_temp'}) 
+ * useStorage(this.data, {
+ *  key: 'temp',
+ *  propertyName: '_temp'
+ * }) 
  * // 调用完之后 this.data._temp = [本地存储的temp]
  * // 赋值之后会自动更新Storage里的值
  */
-export function useStorage(context: any, { key, propertyName }: useStorageOption, callback?: (value: any) => void): void {
+export function useStorage(
+  context: any,
+  { key, propertyName }: useStorageOption,
+  callback?: (value: any) => void
+): void {
   let _value = wx.getStorageSync(key)
   const setter = (data: any) => {
     wx.setStorageSync(key, data)
@@ -72,15 +82,31 @@ export function $(selector: string, context: WechatMiniprogram.Component.Instanc
 }
 
 /**
- * 执行 selectQuery 的exec方法，并返回Promise
- * @param selectQuery 查询节点信息的对象
- * @example
- * $$($('#dialog', this).boundingClientRect()).then(res => {
- * ......
- * })
+ * 日志管理器对象
  */
-export function $$(selectQuery: WechatMiniprogram.SelectorQuery) {
-  new Promise(resolve => {
-    selectQuery.exec(resolve)
-  })
-}
+export const log = wx.getLogManager({})
+/**
+ * 不会把 App、Page 的生命周期函数和 wx 命名空间下的函数调用写入日志
+ */
+export const log1 = wx.getLogManager({ level: 1 })
+/**
+ * 实时日志管理器对象
+ */
+export const rlog = wx.getRealtimeLogManager()
+
+/**
+ * px 和 rpx 转化的比例
+ */
+export const pxRatio = 750 / app.systemInfo.screenWidth
+
+/**
+ * px转换成rpx
+ * @param px
+ */
+export const px2rpx = (px: number) => ~~(px * pxRatio)
+
+/**
+ * rpx转换成px
+ * @param rpx
+ */
+export const rpx2px = (rpx: number) => ~~(rpx / pxRatio)
