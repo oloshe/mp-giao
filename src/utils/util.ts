@@ -1,5 +1,5 @@
 
-import '../../global'
+/// <reference path="../../global.d.ts" />
 const app = getApp<IAppOption>()
 
 /**
