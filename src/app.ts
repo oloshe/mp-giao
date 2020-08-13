@@ -2,7 +2,7 @@ import '../global'
 
 App<IAppOption>({
   globalData: {},
-  
+
   systemInfo: wx.getSystemInfoSync(),
 
   onLaunch() {

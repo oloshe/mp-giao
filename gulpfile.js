@@ -101,6 +101,5 @@ gulp.task('watch', () => {
 
     gulp.watch('src/', {
         ignoreInitial: false,
-        events: ['change', 'unlink']
     }, gulp.series('dev'))
 })

@@ -1,5 +1,5 @@
+/// <reference path="../../../global.d.ts" />
 export { }
-import "../../../global"
 // 获取应用实例
 const app = getApp<IAppOption>()
 
@@ -7,6 +7,9 @@ export {}
 
 interface IData extends WechatMiniprogram.Component.DataOption {
   motto: string
+  userInfo: {}
+  hasUserInfo: boolean
+  canIUse: boolean
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
@@ -26,7 +29,6 @@ Component<IData, {}, IMethod>({
 
   methods: {
     onLoad() {
-      (this as any).temp = 'asd'
       if (app.globalData.userInfo) {
         this.setData!({
           userInfo: app.globalData.userInfo,
