@@ -78,10 +78,7 @@ gulp.task('img', () => {
 
 
 // 开发模式
-gulp.task('dev', gulp.series(
-    gulp.parallel('ts', 'less', 'json', 'wxml', 'img')),
-    'watch',
-)
+gulp.task('dev', gulp.parallel('ts', 'less', 'json', 'wxml', 'img'))
 
 // 生产模式
 gulp.task('default', gulp.series('clean', gulp.parallel('ts', 'less', 'json', 'wxml', 'img')))
