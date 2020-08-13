@@ -1,15 +1,13 @@
 <!--index.wxml-->
-<view class="container" style="padding-top: {{statusBarHeight}}px;">
-  <view class="flex align-center" style="height: 100rpx;">
-    <button wx:if="{{!hasUserInfo && canIUse}}" style="margin: 0 20rpx;" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="container">
+  <view class="flex align-center bg-white" style="padding-top: {{statusBarHeight}}px;padding-bottom: 10rpx;">
+    <open-data class="avatar" type="userAvatarUrl"></open-data>
+    <open-data class="nickname" type="userNickName"></open-data>
   </view>
   <view class="usermotto flex flex-direction align-start">
-    <text class="txt text-sl shadow">{{title}}</text>
-    <text class="txt text-sm shadow">{{desc}}</text>
+    <text class="txt text-sl shadow" style="font-weight: 100;">{{title}}</text>
+    <text class="txt text-bold text-sm clr6 shadow">{{intro}}</text>
+    <text class="txt text-bold text-sm clr6 shadow">{{desc}}</text>
   </view>
   <view class="ul bg-yellow shadow">
     <navigator class="li text-xl tiny-border flex justify-around" url="{{item.path}}" wx:for="{{intros}}" wx:key="item">

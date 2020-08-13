@@ -8,11 +8,11 @@ export {}
 interface IData {
   title: string
   desc: string
-  userInfo: {}
+  intro: string,
   statusBarHeight: number
   hasUserInfo: boolean
   canIUse: boolean
-  intros: Array<{name, path}>
+  intros: Array<{name: string, path: string}>
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
@@ -25,18 +25,14 @@ Component<IData, {}, IMethod>({
 
   data: {
     title: 'mp-giao',
-    desc: '使用 Typescript + Less 的小程序项目',
-    userInfo: {},
+    intro: '使用 Typescript 的小程序项目',
+    desc: '如果你想在小程序使用 Typescript 又不想应付麻烦的配置，clone 这个项目，给你开箱即用的体验。',
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     statusBarHeight: app.systemInfo.statusBarHeight,
     intros: [
       {
-        name: 'style',
-        path: '/pages/style-demo/index',
-      },
-      {
-        name: 'utils',
+        name: 'utils - demo',
         path: '/pages/utils-demo/index',
       },
     ]
@@ -44,40 +40,7 @@ Component<IData, {}, IMethod>({
 
   methods: {
     onLoad() {
-      if (app.globalData.userInfo) {
-        this.setData!({
-          userInfo: app.globalData.userInfo,
-          hasUserInfo: true,
-        })
-      } else if (this.data.canIUse) {
-        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-        // 所以此处加入 callback 以防止这种情况
-        app.userInfoReadyCallback = res => {
-          this.setData!({
-            userInfo: res.userInfo,
-            hasUserInfo: true,
-          })
-        }
-      } else {
-        // 在没有 open-type=getUserInfo 版本的兼容处理
-        wx.getUserInfo({
-          success: res => {
-            app.globalData.userInfo = res.userInfo
-            this.setData!({
-              userInfo: res.userInfo,
-              hasUserInfo: true,
-            })
-          },
-        })
-      }
-    },
-    getUserInfo(e: any) {
-      console.log(e)
-      app.globalData.userInfo = e.detail.userInfo
-      this.setData!({
-        userInfo: e.detail.userInfo,
-        hasUserInfo: true,
-      })
+      
     },
   }
 })

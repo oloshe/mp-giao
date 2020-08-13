@@ -1,27 +1,27 @@
 page{
     background: var(--ghostWhite);
 }
-.userinfo-avatar {
+.avatar {
     width: 80rpx;
     height: 80rpx;
-    margin: 10rpx 20rpx;
+    margin: 10rpx 30rpx;
     border-radius: 50%;
+    overflow: hidden;
 
     &:active{
         filter: brightness(1.2);
     }
 }
 
-.userinfo-nickname {
+.nickname {
     color: #aaa;
 }
 
 .usermotto {
-    margin: 50rpx 30rpx;
-    text-align: center;
+    margin: 10rpx 30rpx;
 
     .txt{
-        font-weight: 100;
+        margin: 10rpx 0;
         font-family: Helvetica, sans-serif;
     }
 }
@@ -29,7 +29,6 @@ page{
 .ul{
     margin: 10rpx 30rpx;
     border-radius: 20rpx;
-    text-align: center;
     animation: Fade-In .5s ease forwards;
 
     overflow: hidden;

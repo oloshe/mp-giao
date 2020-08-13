@@ -1,0 +1,15 @@
+<view class="li">
+    <view class="title">formatTime - 格式化时间</view>
+    <view class="item" wx:for="{{timeStringList}}" wx:key="item">{{item}}</view>
+</view>
+<view class="li">
+    <view class="title">useStorage - 使用本地存储钩子函数</view>
+    <view class="item color {{selectedIndex === index ? 'selected' : ''}}" style="background: {{item}};" bind:tap="onColorTap" mark:index="{{index}}" wx:for="{{colorList}}" wx:key="item">
+        <text>{{item}}</text>
+        <text class=" {{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="deleteColor"></text>
+    </view>
+    <view class="flex">
+        <view class="flex-sub bg-gray padding-sm margin-xs">恢复</view>
+        <view class="flex-sub bg-yellow padding-sm margin-xs">新增随机颜色</view>
+    </view>
+</view>

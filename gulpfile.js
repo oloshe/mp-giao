@@ -4,6 +4,7 @@ const gulp = require('gulp')
     , newer = require('gulp-newer')
     , clean = require('gulp-clean')
     , less = require('gulp-less')
+    , sass = require('gulp-sass')
     , mincss = require('gulp-minify-css')
     , rename = require('gulp-rename')
     , ts = require('gulp-typescript')
@@ -16,6 +17,7 @@ const gulp = require('gulp')
     // path
     , ts_path = 'src/**/*.ts'
     , less_path = 'src/**/*.less'
+    , sass_path = 'src/**/*(.scss|.sass)'
     , json_path = 'src/**/*.json'
     , wxml_path = 'src/**/*.wxml'
     , img_path = 'src/**/*.{png,jpg,gif}'
@@ -42,6 +44,18 @@ gulp.task('less', () => {
     return gulp.src(less_path)
         .pipe(changed(dist, { extension: '.wxss' }))
         .pipe(less())
+        .pipe(gulpif(config.mincss, mincss())) // 压缩css
+        .pipe(rename(path => {
+            path.extname = '.wxss'
+        }))
+        .pipe(gulp.dest(dist))
+})
+
+//  Sass 转 wxss
+gulp.task('sass', () => {
+    return gulp.src(sass_path)
+        .pipe(changed(dist, { extension: '.wxss' }))
+        .pipe(sass())
         .pipe(gulpif(config.mincss, mincss())) // 压缩css
         .pipe(rename(path => {
             path.extname = '.wxss'
@@ -76,12 +90,13 @@ gulp.task('img', () => {
         .pipe(gulp.dest(dist))
 })
 
+gulp.task('trans', gulp.parallel('ts', 'less', 'sass', 'json', 'wxml', 'img'))
 
 // 开发模式
-gulp.task('dev', gulp.parallel('ts', 'less', 'json', 'wxml', 'img'))
+gulp.task('dev', gulp.series('trans'))
 
 // 生产模式
-gulp.task('default', gulp.series('clean', gulp.parallel('ts', 'less', 'json', 'wxml', 'img')))
+gulp.task('default', gulp.series('clean', 'trans'))
 
 
 // 监听

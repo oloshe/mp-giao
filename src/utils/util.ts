@@ -34,8 +34,18 @@ const fnum = (n: number) => {
 }
 
 interface useStorageOption {
+  /**
+   * storage键值
+   */
   key: string
+  /**
+   * 挂载在context上的属性名
+   */
   propertyName?: string
+  /**
+   * 当storage取值为""时的默认值
+   */
+  defaultValue?: any
 }
 
 /**
@@ -59,22 +69,27 @@ interface useStorageOption {
  */
 export function useStorage(
   context: any,
-  { key, propertyName }: useStorageOption,
+  { key, propertyName, defaultValue }: useStorageOption,
   callback?: (value: any) => void
-): void {
-  let _value = wx.getStorageSync(key)
-  const setter = (data: any) => {
-    wx.setStorageSync(key, data)
-    return data
-  }
-  Object.defineProperty(context, propertyName || key, {
-    get: () => _value,
-    set: (value: any) => {
-      _value = setter(value)
-      if (callback) callback(value)
-    },
-    enumerable: true,
-    configurable: true
+): Promise<any> {
+  return new Promise(resolve => {
+    let _value = wx.getStorageSync(key)
+    const setter = (data: any) => {
+      wx.setStorageSync(key, data)
+      return data
+    }
+    Object.defineProperty(context, propertyName || key, {
+      get: () => _value,
+      set: (value: any) => {
+        _value = setter(value)
+        if (callback) callback(value)
+      },
+      enumerable: true,
+      configurable: true
+    })
+    _value === '' && defaultValue !== void 0
+      ? resolve(setter(defaultValue))
+      : resolve(_value)
   })
 }
 

@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/style-demo/index",
     "pages/utils-demo/index"
   ],
   "window": {
