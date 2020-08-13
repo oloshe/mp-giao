@@ -4,10 +4,11 @@
   "description": "微信小程序Typescript + Less快速启动项目",
   "scripts": {
     "compile": "./node_modules/typescript/bin/tsc",
-    "tsc": "node ./node_modules/typescript/lib/tsc.js",
-    "build": "./node_modules/.bin/gulp",
-    "dev": "./node_modules/.bin/gulp watch",
-    "lint": "./node_modules/.bin/eslint src/**/*.ts"
+    "tsc": "node ./node_modules/typescript/lib/tsc.js -w",
+    "gulp": "gulp",
+    "dev": "gulp watch",
+    "lint": "eslint src/**/*.ts",
+    "build": "webpack"
   },
   "keywords": [
     "miniprogram",
@@ -24,8 +25,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "del": "^5.1.0",
     "eslint": "^7.6.0",
     "eslint-config-google": "^0.14.0",
@@ -42,6 +43,9 @@
     "gulp-rename": "^2.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
-    "typescript": "^3.3.3333"
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
