@@ -6,7 +6,7 @@
 		"body": [
 			"export {}",
 			"",
-			"interface IData extends WechatMiniprogram.Component.DataOption {",
+			"interface IData {",
 			"\t$1",
 			"}",
 			"",
@@ -21,7 +21,7 @@
 			"\tdata: {},",
 			"",
 			"\tmethods: {",
-			"\t\tonLoad(options: Record<string, string | undefined>) {",
+			"\t\tonLoad(options: any) {",
 			"\t\t\t$4",
 			"\t\t},",
 			"",
