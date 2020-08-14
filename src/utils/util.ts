@@ -28,7 +28,7 @@ export const formatTime = (date: Date, format: String) => {
   })
 }
 
-const fnum = (n: number) => {
+const fnum = (n: number | string) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
 }
@@ -55,7 +55,7 @@ interface useStorageOption {
  * @param callback 赋值时的回调函数（副作用）
  * @example 
  * // 在页面 onLoad 中调用
- * useStorage(this, { key: 'name' }, name => this.setData!({ name }))
+ * useStorage(this, { key: 'name' }, name => this.setData({ name }))
  * // 调用完之后 this.name = [本地存储的name]
  * // 由于上面注册了副作用会自动setData，故无须重复setData
  * this.name = '小阿giao'
@@ -66,46 +66,47 @@ interface useStorageOption {
  * }) 
  * // 调用完之后 this.data._temp = [本地存储的temp]
  * // 赋值之后会自动更新Storage里的值
+ * 
+ * // 注意！！ 挂载在page.data上的数据，副作用不要进行setData的操作，否则会陷入死循环
+ * // 因为setData会自动给page.data上的值赋值
  */
 export function useStorage(
   context: any,
   { key, propertyName, defaultValue }: useStorageOption,
   callback?: (value: any) => void
-): Promise<any> {
-  return new Promise(resolve => {
-    let _value = wx.getStorageSync(key)
-    const setter = (data: any) => {
-      wx.setStorageSync(key, data)
-      return data
-    }
-    Object.defineProperty(context, propertyName || key, {
-      get: () => _value,
-      set: (value: any) => {
-        _value = setter(value)
-        if (callback) callback(value)
-      },
-      enumerable: true,
-      configurable: true
-    })
-    _value === '' && defaultValue !== void 0
-      ? resolve(setter(defaultValue))
-      : resolve(_value)
+): any {
+  let _value = wx.getStorageSync(key)
+  const setter = (data: any) => {
+    wx.setStorageSync(key, data)
+    return data
+  }
+  Object.defineProperty(context, propertyName || key, {
+    get: () => _value,
+    set: (value: any) => {
+      _value = setter(value)
+      if (callback) callback(value)
+    },
+    enumerable: true,
+    configurable: true
   })
+  return _value === '' && defaultValue !== void 0
+    ? setter(defaultValue)
+    : _value
 }
 
 /**
  * 选择器
- * @param selector 选择器
  * @param context 上下文 传this
- * @param isAll 是否使用selectAll
- * @example
- * $('#dialog', this).boundingClientRect().exec(function (res) => {
- * ......
- * })
+ * @param isAll 是否选择所有
  */
-export function $(selector: string, context: WechatMiniprogram.Component.Instance<{}, {}, {}>, isAll?: boolean) {
-  const query = context.createSelectorQuery()
-  return isAll ? query.selectAll(selector) : query.select(selector)
+export function $(context: WechatMiniprogram.Component.Instance<{}, {}, {}>, isAll: boolean) {
+  /** 
+   * @param selector 选择器
+   */
+  return function (selector: string) {
+    const query = context.createSelectorQuery()
+    return isAll ? query.selectAll(selector) : query.select(selector)
+  }
 }
 
 /**
@@ -137,3 +138,9 @@ export const px2rpx = (px: number) => ~~(px * pxRatio)
  * @param rpx
  */
 export const rpx2px = (rpx: number) => ~~(rpx / pxRatio)
+
+/**
+ * 生成随机16进制颜色
+ */
+export const getRandomColor = () => `#${[0, 0, 0].map(() => (~~(Math.random() * 0x100)).toString(16).replace(/^(\w)$/, `0$1`)).join(``)}`
+
