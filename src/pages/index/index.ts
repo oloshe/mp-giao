@@ -16,7 +16,8 @@ interface IData {
     name: string,
     path: string,
     animate?: boolean,
-  }>
+  }>,
+  hot:boolean
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
@@ -39,7 +40,8 @@ Component<IData, {}, IMethod>({
         name: 'utils - demo',
         path: '/pages/utils-demo/index',
       },
-    ]
+    ],
+    hot: false,
   },
 
   methods: {
@@ -49,11 +51,9 @@ Component<IData, {}, IMethod>({
     animate(e: any) {
       const { index } = e.currentTarget.dataset
       this.setData({
-        [`intros[${index}].animate`]: true
+        [`intros[${index}].animate`]: true,
+        hot: true,
       })
-      // wx.navigateTo({
-      //   url: path
-      // })
     },
     animationEnd(e) {
       const { index } = e.currentTarget.dataset
@@ -62,7 +62,8 @@ Component<IData, {}, IMethod>({
         complete: () => {
           setTimeout(() => {
             this.setData({
-              [`intros[${index}].animate`]: false
+              [`intros[${index}].animate`]: false,
+              hot: false,
             })
           }, 1000)
         }

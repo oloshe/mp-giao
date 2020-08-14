@@ -25,11 +25,16 @@ page{
         font-family: Helvetica, sans-serif;
     }
 }
-
+@animateTime: 1.5s;
 .ul{
     margin: 10rpx 30rpx;
     border-radius: 20rpx;
-    animation: Fade-In .5s ease forwards;
+    animation: roll-in 1s ease-out forwards;
+    transition: all @animateTime;
+
+    &.hot{
+        background: red;
+    }
     
     .li{
         padding: 20rpx;
@@ -39,7 +44,7 @@ page{
         z-index: 100;
 
         &.animate{
-            animation: rocket 1.5s ease forwards;
+            animation: rocket @animateTime ease forwards;
         }
     }
     .tiny-border{
@@ -47,10 +52,10 @@ page{
     }
 }
 
-@keyframes Fade-In {
+@keyframes roll-in {
     0%{
         opacity: 0;
-        transform: translateX(-50vw);
+        transform: translateX(-50vw) rotateZ(3600deg);
     }
     to{
         opacity: 1;

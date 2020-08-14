@@ -9,7 +9,7 @@
     <text class="txt text-bold text-sm clr6 shadow">{{intro}}</text>
     <text class="txt text-bold text-sm clr6 shadow">{{desc}}</text>
   </view>
-  <view class="ul bg-yellow shadow">
+  <view class="ul {{hot ? 'hot' : ''}} bg-yellow shadow">
     <block wx:for="{{intros}}" wx:key="item">
       <view class="li text-xl flex justify-around {{item.animate ? 'animate' : ''}}" bind:animationend="animationEnd" bind:tap="animate" data-index="{{index}}">
         <text>{{item.name}}</text>
