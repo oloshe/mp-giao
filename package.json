@@ -5,10 +5,9 @@
   "scripts": {
     "compile": "./node_modules/typescript/bin/tsc",
     "tsc": "node ./node_modules/typescript/lib/tsc.js -w",
-    "gulp": "gulp",
+    "build": "gulp",
     "dev": "gulp watch",
-    "lint": "eslint src/**/*.ts",
-    "build": "webpack"
+    "lint": "eslint src/**/*.ts"
   },
   "keywords": [
     "miniprogram",

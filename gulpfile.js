@@ -105,18 +105,9 @@ gulp.task('default', gulp.series('clean', 'trans'))
 
 
 // 监听
-gulp.task('watch', () => {
-    // TODO 分类重新构建
-    // // ts
-    // gulp.watch(ts_path, gulp.series('ts'))
-    // // less
-    // gulp.watch(less_path,{ events: ['change'] }, gulp.series('less'))
-    // // json
-    // gulp.watch(json_path,{ events: ['change'] }, gulp.series('json'))
-    // // less
-    // gulp.watch(wxml_path, { events: ['change'] }, gulp.series('wxml'))
-
+gulp.task('start-watch', () => {
     gulp.watch('src/', {
         ignoreInitial: false,
     }, gulp.series('dev'))
 })
+gulp.task('watch', gulp.series('clean', 'start-watch'))
