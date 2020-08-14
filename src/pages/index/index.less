@@ -30,13 +30,20 @@ page{
     margin: 10rpx 30rpx;
     border-radius: 20rpx;
     animation: Fade-In .5s ease forwards;
-
-    overflow: hidden;
+    
     .li{
         padding: 20rpx;
         letter-spacing: 10rpx;
         font-weight: 900;
         font-style: italic;
+        z-index: 100;
+
+        &.animate{
+            animation: rocket 1.5s ease forwards;
+        }
+    }
+    .tiny-border{
+        z-index: 10;
     }
 }
 
@@ -48,5 +55,19 @@ page{
     to{
         opacity: 1;
         transform: none;
+    }
+}
+@keyframes rocket{
+    0%{
+        letter-spacing: 10rpx;
+    }
+    70%{
+        letter-spacing: 2rpx;
+        justify-content: flex-end;
+        transform: rotateY(360deg);
+    }
+    100%{
+        justify-content: flex-end;
+        transform: translateX(-100vw);
     }
 }

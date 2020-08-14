@@ -12,7 +12,11 @@ interface IData {
   statusBarHeight: number
   hasUserInfo: boolean
   canIUse: boolean
-  intros: Array<{name: string, path: string}>
+  intros: Array<{
+    name: string,
+    path: string,
+    animate?: boolean,
+  }>
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
@@ -42,5 +46,27 @@ Component<IData, {}, IMethod>({
     onLoad() {
       
     },
+    animate(e: any) {
+      const { index } = e.currentTarget.dataset
+      this.setData({
+        [`intros[${index}].animate`]: true
+      })
+      // wx.navigateTo({
+      //   url: path
+      // })
+    },
+    animationEnd(e) {
+      const { index } = e.currentTarget.dataset
+      wx.navigateTo({
+        url: this.data.intros[index].path,
+        complete: () => {
+          setTimeout(() => {
+            this.setData({
+              [`intros[${index}].animate`]: false
+            })
+          }, 1000)
+        }
+      })
+    }
   }
 })
