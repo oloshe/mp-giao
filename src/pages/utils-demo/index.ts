@@ -1,4 +1,4 @@
-import { formatTime, useStorage } from "../../utils/util"
+import { formatTime, useStorage, getRandomColor } from "../../utils/util"
 const colorList = [
     '#e54d42',
     '#f37b1d',
@@ -7,10 +7,6 @@ const colorList = [
     '#1cbbb4',
     '#0081ff',
     '#6739b6',
-    '#9c26b0',
-    '#e03997',
-    '#a5673f',
-    '#8799a3',
 ]
 Object.freeze(colorList)
 export { }
@@ -22,7 +18,7 @@ interface IData {
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
-
+    
 }
 
 Component<IData, {}, IMethod>({
@@ -48,27 +44,47 @@ Component<IData, {}, IMethod>({
             this.setData({ timeStringList })
 
             // useStorage
-            useStorage(this.data, {
+            // usage1
+            const colors = useStorage(this.data, {
                 key: 'colors',
                 propertyName: 'colorList',
-                defaultValue: colorList,
+                defaultValue: [...colorList],
             })
-                .then(res => this.setData({ colorList: res }))
+            // usage2
+            const selectedIndex = useStorage(this, {
+                key: 'selectedIndex',
+                defaultValue: -1,
+            }, index => {
+                this.setData({
+                    selectedIndex: index
+                })
+            })
+            this.setData({ colorList: colors, selectedIndex })
 
         },
         onColorTap(e: any) {
             const index = parseInt(e.mark.index)
-            this.setData({
-                selectedIndex: index,
-            })
+            ;(this as any).selectedIndex = index // 自动执行56行注册的回调函数，故不用setData
         },
         deleteColor(e: any) {
             const index = parseInt(e.mark.index)
             this.data.colorList?.splice(index, 1)
+            ;(this as any).selectedIndex = -1
             this.setData({
                 colorList: this.data.colorList,
-                selectedIndex: -1,
             })
-        }
+        },
+        recover() {
+            (this as any).selectedIndex = -1
+            this.setData({
+                colorList: [...colorList]
+            })
+        },
+        addRandom() {
+            const color = getRandomColor()
+            console.log(color)
+            this.data.colorList?.push(color)
+                && this.setData({ colorList: this.data.colorList })
+        },
     }
 })

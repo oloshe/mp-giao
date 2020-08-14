@@ -4,12 +4,12 @@
 </view>
 <view class="li">
     <view class="title">useStorage - 使用本地存储钩子函数</view>
-    <view class="item color {{selectedIndex === index ? 'selected' : ''}}" style="background: {{item}};" bind:tap="onColorTap" mark:index="{{index}}" wx:for="{{colorList}}" wx:key="item">
+    <view class="item color radius animation-slide-left {{selectedIndex === index ? 'selected' : ''}}" style="background: {{item}};" bind:tap="onColorTap" mark:index="{{index}}" wx:for="{{colorList}}" wx:key="item">
         <text>{{item}}</text>
-        <text class=" {{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="deleteColor"></text>
+        <text class="{{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="deleteColor"></text>
     </view>
     <view class="flex">
-        <view class="flex-sub bg-gray padding-sm margin-xs">恢复</view>
-        <view class="flex-sub bg-yellow padding-sm margin-xs">新增随机颜色</view>
+        <view class="flex-sub ophover bg-gray padding-sm margin-xs text-center" bind:tap="recover">恢复默认</view>
+        <view class="flex-sub ophover bg-yellow padding-sm margin-xs text-center" bind:tap="addRandom">新增随机颜色</view>
     </view>
 </view>
