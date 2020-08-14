@@ -12,7 +12,12 @@ const gulp = require('gulp')
     , uglifyJS = require('gulp-uglify')
     // , del = require('del')
     , tsProject = ts.createProject('tsconfig.json')
-    , config = require('./tools/gulp.config.js')
+    , config = {
+        // 是否压缩css
+        mincss: true,
+        // 是否压缩js
+        minjs: false,
+    }
 
     // path
     , ts_path = 'src/**/*.ts'
