@@ -41,7 +41,7 @@ interface useStorageOption {
   /**
    * 挂载在context上的属性名
    */
-  propertyName?: string
+  propKey?: string
   /**
    * 当storage取值为""时的默认值
    */
@@ -62,7 +62,7 @@ interface useStorageOption {
  * 
  * useStorage(this.data, {
  *  key: 'temp',
- *  propertyName: '_temp'
+ *  propKey: '_temp'
  * }) 
  * // 调用完之后 this.data._temp = [本地存储的temp]
  * // 赋值之后会自动更新Storage里的值
@@ -72,7 +72,7 @@ interface useStorageOption {
  */
 export function useStorage(
   context: any,
-  { key, propertyName, defaultValue }: useStorageOption,
+  { key, propKey, defaultValue }: useStorageOption,
   callback?: (value: any) => void
 ): any {
   let _value = wx.getStorageSync(key)
@@ -80,7 +80,7 @@ export function useStorage(
     wx.setStorageSync(key, data)
     return data
   }
-  Object.defineProperty(context, propertyName || key, {
+  Object.defineProperty(context, propKey || key, {
     get: () => _value,
     set: (value: any) => {
       _value = setter(value)
@@ -144,3 +144,94 @@ export const rpx2px = (rpx: number) => ~~(rpx / pxRatio)
  */
 export const getRandomColor = () => `#${[0, 0, 0].map(() => (~~(Math.random() * 0x100)).toString(16).replace(/^(\w)$/, `0$1`)).join(``)}`
 
+/**
+ * 创建InnerAudioContext的快捷方法，根据InnerAudioContextOptions的参数给对象快速添加属性和注册回调函数
+ * @param options 
+ */
+export function createInnerAudioContext(options: InnerAudioContextOptions) {
+  const context = wx.createInnerAudioContext()
+  for (let item in options) {
+    const prop = options[item]
+    if (typeof prop === 'function') {
+      context[item](prop)
+    } else {
+      context[item] = prop
+    }
+  }
+  return context
+}
+
+interface InnerAudioContextOptions {
+  /** 音频资源的地址，用于直接播放。 */
+  src: string
+  /** 是否自动开始播放，默认为 `false` */
+  autoplay?: boolean
+  /** 是否循环播放，默认为 `false` */
+  loop?: boolean
+  /** 开始播放的位置（单位：s），默认为 0 */
+  startTime?: number
+  /** 音量。范围 0~1。默认为 1 */
+  volume?: number
+  /** 监听音频进入可以播放状态的事件。但不保证后面可以流畅播放 */
+  onCanplay?(
+    /** 音频进入可以播放状态的事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnCanplayCallback,
+  ): void
+  /** 监听音频自然播放至结束的事件 */
+  onEnded?(
+    /** 音频自然播放至结束的事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnEndedCallback,
+  ): void
+  /** 监听音频播放错误事件 */
+  onError?(
+    /** 音频播放错误事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnErrorCallback,
+  ): void
+  /** 监听音频暂停事件 */
+  onPause?(
+    /** 音频暂停事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnPauseCallback,
+  ): void
+  /** 监听音频播放事件 */
+  onPlay?(
+    /** 音频播放事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnPlayCallback,
+  ): void
+  /** 监听音频完成跳转操作的事件 */
+  onSeeked?(
+    /** 音频完成跳转操作的事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnSeekedCallback,
+  ): void
+  /** 监听音频进行跳转操作的事件 */
+  onSeeking?(
+    /** 音频进行跳转操作的事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnSeekingCallback,
+  ): void
+  /**  监听音频停止事件 */
+  onStop?(
+    /** 音频停止事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnStopCallback,
+  ): void
+  /** 监听音频播放进度更新事件 */
+  onTimeUpdate?(
+    /** 音频播放进度更新事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnTimeUpdateCallback,
+  ): void
+  /** 监听音频加载中事件。当音频因为数据不足，需要停下来加载时会触发 */
+  onWaiting?(
+    /** 音频加载中事件的回调函数 */
+    callback: WechatMiniprogram.InnerAudioContextOnWaitingCallback,
+  ): void
+
+  /*******************************
+   *          只读属性           *
+   *******************************/
+  /** 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲（只读） */
+  buffered?: number
+  /** 当前音频的播放位置（单位 s）。只有在当前有合法的 src 时返回，时间保留小数点后 6 位（只读） */
+  currentTime?: number
+  /** 当前音频的长度（单位 s）。只有在当前有合法的 src 时返回（只读） */
+  duration?: number
+  /** 当前是是否暂停或停止状态（只读） */
+  paused?: boolean
+}
