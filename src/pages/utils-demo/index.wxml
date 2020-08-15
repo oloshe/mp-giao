@@ -2,14 +2,29 @@
     <view class="title">formatTime - 格式化时间</view>
     <view class="item" wx:for="{{timeStringList}}" wx:key="item">{{item}}</view>
 </view>
+<view class='li'>
+    <view class="title">createInnerAudioContext - 创建内部音频</view>
+    <view class="item sound" data-target="sound1" bind:tap="onPlaySound">
+        <text class="txt">一giao我哩giao giao</text>
+        <text class="cuIcon-{{sound1_on ? 'notificationfill' : 'notification'}}" />
+    </view>
+    <view class="item sound" data-target="sound2" bind:tap="onPlaySound">
+        <text class="txt">唬嚯</text>
+        <text class="cuIcon-{{sound2_on ? 'notificationfill' : 'notification'}}" />
+    </view>
+    <view class="item sound" data-target="sound3" bind:tap="onPlaySound">
+        <text class="txt">呀呼</text>
+        <text class="cuIcon-{{sound3_on ? 'notificationfill' : 'notification'}}" />
+    </view>
+</view>
 <view class="li">
     <view class="title">useStorage - 使用本地存储钩子函数</view>
     <view class="item color radius animation-slide-left {{selectedIndex === index ? 'selected' : ''}}" style="background: {{item}};" bind:tap="onColorTap" mark:index="{{index}}" wx:for="{{colorList}}" wx:key="item">
         <text>{{item}}</text>
-        <text class="{{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="deleteColor"></text>
+        <text class="{{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="onColorDelete"></text>
     </view>
     <view class="flex">
-        <view class="flex-sub ophover bg-gray padding-sm margin-xs text-center" bind:tap="recover">恢复默认</view>
-        <view class="flex-sub ophover bg-yellow padding-sm margin-xs text-center" bind:tap="addRandom">新增随机颜色</view>
+        <view class="flex-sub ophover bg-gray padding-sm margin-xs text-center" bind:tap="onColorRecover">恢复默认</view>
+        <view class="flex-sub ophover bg-yellow padding-sm margin-xs text-center" bind:tap="addRandomColor">新增随机颜色</view>
     </view>
 </view>

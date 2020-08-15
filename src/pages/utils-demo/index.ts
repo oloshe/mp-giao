@@ -1,14 +1,9 @@
-import { formatTime, useStorage, getRandomColor } from "../../utils/util"
-const colorList = [
-    '#e54d42',
-    '#f37b1d',
-    '#fbbd08',
-    '#8dc63f',
-    '#1cbbb4',
-    '#0081ff',
-    '#6739b6',
-]
+import { formatTime, useStorage, getRandomColor, createInnerAudioContext } from "../../utils/util"
+// 默认颜色
+const colorList = ['#e54d42','#f37b1d','#fbbd08', '#8dc63f','#1cbbb4']
 Object.freeze(colorList)
+
+
 export { }
 
 interface IData {
@@ -18,7 +13,7 @@ interface IData {
 }
 
 interface IMethod extends WechatMiniprogram.Component.MethodOption {
-    
+
 }
 
 Component<IData, {}, IMethod>({
@@ -32,7 +27,7 @@ Component<IData, {}, IMethod>({
 
     methods: {
         onLoad() {
-            // formatTime
+            // formatTime 格式化事件
             const timestamp = new Date(),
                 formatList = [
                     'YYYY-MM-DD hh:mm:ss',
@@ -43,11 +38,11 @@ Component<IData, {}, IMethod>({
             const timeStringList = formatList.map(f => formatTime(timestamp, f))
             this.setData({ timeStringList })
 
-            // useStorage
+            // useStorage 使用本地存储
             // usage1
             const colors = useStorage(this.data, {
                 key: 'colors',
-                propertyName: 'colorList',
+                propKey: 'colorList',
                 defaultValue: [...colorList],
             })
             // usage2
@@ -61,26 +56,86 @@ Component<IData, {}, IMethod>({
             })
             this.setData({ colorList: colors, selectedIndex })
 
+            // createInnerAudioContext 创建音频
+            ;(this as any).sound1 = createInnerAudioContext({
+                src: '/asset/1gwlgg.wav',
+                onPlay: () => {
+                    console.log('一giao我哩giao giao')
+                    this.setData({
+                        sound1_on: true,
+                    })
+                },
+                onEnded: () => {
+                    console.log('giao完了')
+                    this.setData({
+                        sound1_on: false,
+                    })
+                },
+                onTimeUpdate: () => {
+                    const progress = (this as any).sound1.currentTime / (this as any).sound1.duration * 100
+                    console.log(progress)
+                }
+            })
+            ;(this as any).sound2 = createInnerAudioContext({
+                src: '/asset/huhuo.wav',
+                onPlay: () => {
+                    console.log('唬嚯')
+                    this.setData({
+                        sound2_on: true,
+                    })
+                },
+                onEnded: () => {
+                    this.setData({
+                        sound2_on: false,
+                    })
+                },
+            })
+            ;(this as any).sound3 = createInnerAudioContext({
+                src: '/asset/yahu.wav',
+                onPlay: () => {
+                    console.log('呀呼')
+                    this.setData({
+                        sound3_on: true,
+                    })
+                },
+                onEnded: () => {
+                    this.setData({
+                        sound3_on: false,
+                    })
+                },
+            })
         },
+        onUnload(){
+            
+        },
+        onPlaySound(e: any){
+            const {target} = e.currentTarget.dataset
+            ;(this[target] as any)?.play()
+        },
+        /** 色块触摸事件 */
         onColorTap(e: any) {
             const index = parseInt(e.mark.index)
-            ;(this as any).selectedIndex = index // 自动执行56行注册的回调函数，故不用setData
+                ; (this as any).selectedIndex = index // 自动执行usage2注册的回调函数，故不用setData
         },
-        deleteColor(e: any) {
+        /** 删除颜色 */
+        onColorDelete(e: any) {
             const index = parseInt(e.mark.index)
             this.data.colorList?.splice(index, 1)
-            ;(this as any).selectedIndex = -1
+                ; (this as any).selectedIndex = -1
             this.setData({
                 colorList: this.data.colorList,
             })
         },
-        recover() {
+        /** 恢复颜色 */
+        onColorRecover() {
             (this as any).selectedIndex = -1
             this.setData({
                 colorList: [...colorList]
             })
+            wx.showToast({ title: '已恢复默认' })
         },
-        addRandom() {
+        /** 添加随机颜色 */
+        addRandomColor() {
             const color = getRandomColor()
             console.log(color)
             this.data.colorList?.push(color)
