@@ -22,10 +22,11 @@ const gulp = require('gulp')
     // path
     , ts_path = 'src/**/*.ts'
     , less_path = 'src/**/*.less'
-    , sass_path = 'src/**/*(.scss|.sass)'
+    , sass_path = 'src/**/*.{scss|sass}'
     , json_path = 'src/**/*.json'
     , wxml_path = 'src/**/*.wxml'
     , img_path = 'src/**/*.{png,jpg,gif}'
+    , copy_path = 'src/**/*.{mp3,wav,m4a,aac}'
     , dist = 'dist'
 
 // 清空
@@ -84,8 +85,7 @@ gulp.task('wxml', () => {
 
 // 图片压缩(只改动有变动的文件）
 gulp.task('img', () => {
-    return gulp
-        .src(img_path)
+    return gulp.src(img_path)
         .pipe(changed(dist))
         .pipe(
             imagemin({
@@ -95,7 +95,13 @@ gulp.task('img', () => {
         .pipe(gulp.dest(dist))
 })
 
-gulp.task('trans', gulp.parallel('ts', 'less', 'sass', 'json', 'wxml', 'img'))
+gulp.task('copy', () => {
+    return gulp.src(copy_path)
+        .pipe(changed(dist))
+        .pipe(gulp.dest(dist))
+})
+
+gulp.task('trans', gulp.parallel('ts', 'less', 'sass', 'json', 'wxml', 'img', 'copy'))
 
 // 开发模式
 gulp.task('dev', gulp.series('trans'))
