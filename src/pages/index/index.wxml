@@ -1,8 +1,9 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="flex align-center bg-white" style="padding-top: {{statusBarHeight}}px;padding-bottom: 10rpx;">
+  <view class="flex align-center bg-white clr10" style="padding-top: {{systemInfo.statusBarHeight}}px;padding-bottom: 10rpx;">
     <open-data class="avatar" type="userAvatarUrl"></open-data>
-    <open-data class="nickname" type="userNickName"></open-data>
+    <open-data type="userNickName"></open-data>
+    <text>，{{time}}好！</text>
   </view>
   <view class="usermotto flex flex-direction align-start">
     <text class="txt text-sl shadow" style="font-weight: 100;">{{title}}</text>
@@ -11,11 +12,27 @@
   </view>
   <view class="ul {{hot ? 'hot' : ''}} bg-yellow shadow">
     <block wx:for="{{intros}}" wx:key="item">
-      <view class="li text-xl flex justify-around {{item.animate ? 'animate' : ''}}" bind:animationend="animationEnd" bind:tap="animate" data-index="{{index}}">
+      <view class="li animation-slide-left text-xl flex justify-around {{item.animate ? 'animate' : ''}}" bind:animationend="animationEnd" bind:tap="animate" data-index="{{index}}">
         <text>{{item.name}}</text>
         <text>💨</text>
       </view>
       <view class="tiny-border"/>
     </block>
+  </view>
+  <view class="bg-cyan shadow padding margin radius">
+    <view class="padding-xs">开源地址：</view>
+    <view class="padding-xs">Github：{{github}}</view>
+    <view class="padding-xs">Gitee：{{gitee}}</view>
+  </view>
+  <view class="info radius margin padding bg-white shadow">
+    <view>SDK版本：{{systemInfo.SDKVersion}}</view>
+    <view>品牌：{{systemInfo.brand}}</view>
+    <view>设备型号：{{systemInfo.model}}</view>
+    <view>语言：{{systemInfo.language}}</view>
+    <view>设备像素比：{{systemInfo.pixelRatio}}</view>
+    <view>客户端平台：{{systemInfo.platform}}</view>
+    <view>屏幕：{{systemInfo.screenWidth}} * {{systemInfo.screenHeight}}</view>
+    <view>操作系统：{{systemInfo.system}}</view>
+    <view>微信版本号：{{systemInfo.version}}</view>
   </view>
 </view>
