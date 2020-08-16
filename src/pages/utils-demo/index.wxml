@@ -19,11 +19,21 @@
 </view>
 <view class="li">
     <view class="title">useStorage - 使用本地存储钩子函数</view>
-    <view class="item color radius animation-slide-left {{selectedIndex === index ? 'selected' : ''}}" style="background: {{item}};" bind:tap="onColorTap" mark:index="{{index}}" wx:for="{{colorList}}" wx:key="item">
-        <text>{{item}}</text>
-        <text class="{{selectedIndex === index ? 'cuIcon-delete lg' : ''}}" catch:tap="onColorDelete"></text>
-    </view>
-    <view class="flex">
+    <scroll-view class="scroll" scroll-into-view="{{colorView}}" enable-flex scroll-x scroll-with-animation>
+        <view
+        id="color-{{index}}"
+        class="item color radius animation-slide-bottom {{selectedIndex === index ? ' selected' : ''}}"
+        style="background: {{item}};"
+        bind:tap="onColorTap"
+        mark:index="{{index}}"
+        wx:for="{{colorList}}"
+        wx:key="item"
+        >
+            <text class="txt">{{item}}</text>
+        </view>
+    </scroll-view>
+    
+    <view class="flex" style="margin-top:20rpx;">
         <view class="flex-sub ophover bg-gray padding-sm margin-xs text-center" bind:tap="onColorRecover">恢复默认</view>
         <view class="flex-sub ophover bg-yellow padding-sm margin-xs text-center" bind:tap="addRandomColor">新增随机颜色</view>
     </view>

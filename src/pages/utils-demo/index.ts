@@ -1,6 +1,6 @@
 import { formatTime, useStorage, getRandomColor, createInnerAudioContext } from "../../utils/util"
 // 默认颜色
-const colorList = ['#e54d42','#f37b1d','#fbbd08', '#8dc63f','#1cbbb4']
+const colorList = ['#E54D42','#F37B1D','#FBBD08', '#8DC63F','#1CBBB4']
 Object.freeze(colorList)
 
 
@@ -115,7 +115,11 @@ Component<IData, {}, IMethod>({
         /** 色块触摸事件 */
         onColorTap(e: any) {
             const index = parseInt(e.mark.index)
-                ; (this as any).selectedIndex = index // 自动执行usage2注册的回调函数，故不用setData
+            if ((this as any).selectedIndex === index) {
+                this.onColorDelete(e)
+            } else {
+                (this as any).selectedIndex = index // 自动执行usage2注册的回调函数，故不用setData
+            }
         },
         /** 删除颜色 */
         onColorDelete(e: any) {
@@ -136,10 +140,13 @@ Component<IData, {}, IMethod>({
         },
         /** 添加随机颜色 */
         addRandomColor() {
-            const color = getRandomColor()
+            const color = getRandomColor().toUpperCase()
             console.log(color)
             this.data.colorList?.push(color)
-                && this.setData({ colorList: this.data.colorList })
+                && this.setData({ 
+                    colorList: this.data.colorList, 
+                    colorView: `color-${this.data.colorList.length - 1}` 
+                })
         },
     }
 })

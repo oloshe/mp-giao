@@ -31,7 +31,7 @@ Component<IData, {}, IMethod>({
 
   data: {
     title: 'mp-giao',
-    intro: '使用 Typescript 的小程序项目',
+    intro: '小程序快速启动项目',
     desc: '如果你想创建一个小程序项目又不想应付麻烦的配置，clone 这个项目，给你开箱即用的体验。',
     systemInfo: app.systemInfo,
     intros: [

@@ -19,7 +19,7 @@
       <view class="tiny-border"/>
     </block>
   </view>
-  <view class="bg-cyan shadow padding margin radius">
+  <view class="bg-cyan shadow padding-xs margin radius">
     <view class="padding-xs">开源地址：</view>
     <view class="padding-xs">Github：{{github}}</view>
     <view class="padding-xs">Gitee：{{gitee}}</view>
