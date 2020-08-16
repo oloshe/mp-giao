@@ -125,7 +125,7 @@ export const rlog = wx.getRealtimeLogManager()
 /**
  * px 和 rpx 转化的比例
  */
-export const pxRatio = 750 / app.systemInfo.screenWidth
+const pxRatio = 750 / app.systemInfo.screenWidth
 
 /**
  * px转换成rpx
