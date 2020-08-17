@@ -1,7 +1,6 @@
 import { formatTime, useStorage, getRandomColor, createInnerAudioContext } from "../../utils/util"
 // 默认颜色
-const colorList = ['#E54D42','#F37B1D','#FBBD08', '#8DC63F','#1CBBB4']
-Object.freeze(colorList)
+const colorList = Object.freeze(['#E54D42','#F37B1D','#FBBD08', '#8DC63F','#1CBBB4'])
 
 
 export { }
@@ -147,6 +146,16 @@ Component<IData, {}, IMethod>({
                     colorList: this.data.colorList, 
                     colorView: `color-${this.data.colorList.length - 1}` 
                 })
+        },
+        select() {
+            const fn = () => {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        resolve('giao')
+                    }, 3000)
+                })
+            }
+            fn()
         },
     }
 })
