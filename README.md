@@ -41,6 +41,10 @@ npm run dev
 npm run lint
 ```
 
+## 扫码体验
+
+![MP GIAO二维码](http://cdn.skrgiao.fun/mpgiao.jpg)
+
 ## 🦄 自定义代码片段
 
 > 为了加快开发和提供便捷，使用自定义文件夹代码片段文件
