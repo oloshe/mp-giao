@@ -175,37 +175,37 @@ interface InnerAudioContextOptions {
   /** 监听音频进入可以播放状态的事件。但不保证后面可以流畅播放 */
   onCanplay?(
     /** 音频进入可以播放状态的事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnCanplayCallback,
+    callback: WechatMiniprogram.OnCanplayCallback,
   ): void
   /** 监听音频自然播放至结束的事件 */
   onEnded?(
     /** 音频自然播放至结束的事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnEndedCallback,
+    callback: WechatMiniprogram.OnEndedCallback,
   ): void
   /** 监听音频播放错误事件 */
   onError?(
     /** 音频播放错误事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnErrorCallback,
+    callback: WechatMiniprogram.OnEndedCallback,
   ): void
   /** 监听音频暂停事件 */
   onPause?(
     /** 音频暂停事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnPauseCallback,
+    callback: WechatMiniprogram.OnPauseCallback,
   ): void
   /** 监听音频播放事件 */
   onPlay?(
     /** 音频播放事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnPlayCallback,
+    callback: WechatMiniprogram.OnPlayCallback,
   ): void
   /** 监听音频完成跳转操作的事件 */
   onSeeked?(
     /** 音频完成跳转操作的事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnSeekedCallback,
+    callback: WechatMiniprogram.OnSeekedCallback,
   ): void
   /** 监听音频进行跳转操作的事件 */
   onSeeking?(
     /** 音频进行跳转操作的事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnSeekingCallback,
+    callback: WechatMiniprogram.OnSeekingCallback,
   ): void
   /**  监听音频停止事件 */
   onStop?(
@@ -215,12 +215,12 @@ interface InnerAudioContextOptions {
   /** 监听音频播放进度更新事件 */
   onTimeUpdate?(
     /** 音频播放进度更新事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnTimeUpdateCallback,
+    callback: WechatMiniprogram.OnTimeUpdateCallback,
   ): void
   /** 监听音频加载中事件。当音频因为数据不足，需要停下来加载时会触发 */
   onWaiting?(
     /** 音频加载中事件的回调函数 */
-    callback: WechatMiniprogram.InnerAudioContextOnWaitingCallback,
+    callback: WechatMiniprogram.OnWaitingCallback,
   ): void
 
   /*******************************
