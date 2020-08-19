@@ -44,6 +44,7 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
     "ts-loader": "^8.0.2",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "@types/wechat-miniprogram": "^3.0.0"
   }
 }

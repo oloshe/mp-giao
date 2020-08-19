@@ -17,9 +17,7 @@
     "removeComments": true,
     "pretty": true,
     "lib": ["ES2015", "ES2016", "ES2017"],
-    "typeRoots": [
-      "./typings"
-    ],
+    "types": ["wechat-miniprogram"]
   },
   "files": ["global.d.ts"],
   "include": [
