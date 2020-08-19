@@ -1,13 +1,3 @@
-/*! *****************************************************************************
-Copyright (c) 2019 Tencent, Inc. All rights reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-***************************************************************************** */
-
 declare namespace WechatMiniprogram {
     namespace App {
         interface ReferrerInfo {
@@ -219,6 +209,17 @@ declare namespace WechatMiniprogram {
              * 最低基础库： 1.9.90
              */
             onPageNotFound(options: PageNotFoundOption): void
+            /**
+             * 小程序有未处理的 Promise 拒绝时触发。也可以使用 [wx.onUnhandledRejection](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onUnhandledRejection.html) 绑定监听。注意事项请参考 [wx.onUnhandledRejection](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onUnhandledRejection.html)。
+             * **参数**：与 [wx.onUnhandledRejection](https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onUnhandledRejection.html) 一致
+             */
+            onUnhandledRejection: OnUnhandledRejectionCallback
+            /**
+             * 系统切换主题时触发。也可以使用 wx.onThemeChange 绑定监听。
+             *
+             * 最低基础库： 2.11.0
+             */
+            onThemeChange: OnThemeChangeCallback
         }
 
         type Instance<T extends IAnyObject> = Option & T
@@ -245,5 +246,5 @@ declare namespace WechatMiniprogram {
     }
 }
 
-declare const App: WechatMiniprogram.App.Constructor
-declare const getApp: WechatMiniprogram.App.GetApp
+declare let App: WechatMiniprogram.App.Constructor
+declare let getApp: WechatMiniprogram.App.GetApp
