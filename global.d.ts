@@ -19,7 +19,7 @@ interface useStorageOption {
   defaultValue?: any;
 }
 
-declare var global: {
+declare const global: {
   
   /** 系统信息 */
   systemInfo: WechatMiniprogram.GetSystemInfoSyncResult
@@ -78,6 +78,48 @@ declare var global: {
      * @param options 
      */
     createInnerAudioContext(options: InnerAudioContextOptions): WechatMiniprogram.InnerAudioContext
+  }
+
+  cloud: {
+    /** 生产环境 */
+    ENV_PRODUCTION: string
+    /** 开发环境 */
+    ENV_DEVELOPMENT: string
+    /**
+     * 调用云函数
+     * @param model 模块名
+     * @param func 子模块
+     * @param data 携带数据
+     * @example
+     * // 【用户】模块下的【签到】功能
+     * callFunction('user', 'sign', {})
+     *  .then(data => {
+     *    // 成功回调
+     *  })
+     *  .catch(-1, data => {
+     *    // 错误码为-1时的处理
+     *  })
+     *  .catch(-2, data => {
+     *    // 错误码为-2时的处理
+     *  })
+     *  .catchDefault(data => {
+     *      错误码为其他的时候
+     *  })
+     */
+    callFunction: <T, DataType>(model: string, func: string, data?: DataType) => CloudScheme<T>
+    /**
+     * 获取数据库文档
+     * @param collection 集合
+     * @param docId 文档id
+     * @param onSuccess 成功回调
+     */
+    getDocument: <T>(collection: string, docId: string, onSuccess: (data: T) => void) => void
+    /* 模块 */
+    MODEL: {
+    }
+    /** 方法 */
+    FUNC: {
+    }
   }
 
   /**
@@ -160,4 +202,33 @@ interface InnerAudioContextOptions {
   duration?: number;
   /** 当前是是否暂停或停止状态（只读） */
   paused?: boolean;
+}
+
+interface CloudScheme<T>{
+  /**
+   * 注册成功时的函数
+   * @param fun 成功的回调函数
+   */
+  then: (fun: (data: T) => void) => this
+  /**
+   * 注册失败时的函数
+   * @param errcode 错误码
+   * @param callback 失败时的回调
+   */
+  catch: (errcode: number, callback: (data: T) => void) => this
+  /**
+   * 捕获默认的失败函数
+   * @param callback 回调函数
+   */
+  catchDefault: (callback: (data: T) => void) => this
+  /**
+   * 所有错误情况都执行该函数
+   * @param callback 回调函数
+   */
+  catchAll: (callback: (data: T) => void) => this
+  /**
+   * 完成时调用
+   * @param callback 回调函数
+   */
+  onComplete: (callback: () => void) => this
 }

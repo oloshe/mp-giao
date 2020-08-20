@@ -1,3 +1,4 @@
+/// <reference path="../../global.d.ts" />
 // 使用该文件用过 "/// <reference path="global.d.ts" />" 引入global声明后使用global.util.<function>来调用
 
 export const formatTime = (date: Date, format: String) => {

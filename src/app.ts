@@ -1,21 +1,27 @@
-/// <reference path="../global.d.ts" />
+/// <reference path="../global.d.ts"/>
 import * as util from './utils/util'
+import * as cloud from './cloud/index'
 
 App<IAppOption>({
   // 全局数据
   globalData: {},
 
   onLaunch() {
-    
     // 全局变量
     Object.assign(global, {
       util,
+      cloud,
       systemInfo: wx.getSystemInfoSync(),
       log: wx.getLogManager({}),
       log1: wx.getLogManager({ level: 1 }),
       rlog: wx.getRealtimeLogManager(),
     })
 
+    // 初始化云环境
+    // wx.cloud.init({
+    //   env: global.cloud.ENV_DEVELOPMENT
+    // })
+    
     applyUpdate()
   },
 })

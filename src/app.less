@@ -5,45 +5,6 @@
 @import (inline) "./colorUI/icon.wxss";
 @import (inline) "./colorUI/animation.wxss";
 
-//----------------------【字体】-----------------------------------
-.ft(20, 40, 2);
-
-.ft(@min, @max, @step) when (@min < @max) {
-  .ft@{min} {
-    font-size: @min * 1rpx;
-  }
-
-  .ft(@min + @step, @max, @step)
-}
-
-//----------------------【颜色】-----------------------------------
-@colors: #000, #111, #222, #333, #444, #555, #666, #777, #888, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff;
-.colorLoop(0);
-.bgLoop(0);
-
-.colorLoop(@i) when (@i < length(@colors)) {
-  .color_define(@i, extract(@colors, @i + 1));
-  .colorLoop(@i + 1);
-
-}
-
-.bgLoop(@i) when (@i < length(@colors)) {
-  .bg_define(@i, extract(@colors, @i + 1));
-  .bgLoop(@i + 1);
-}
-
-.color_define(@i, @color) {
-  .clr@{i} {
-    color: @color;
-  }
-}
-
-.bg_define(@i, @color) {
-  .bg@{i} {
-    background-color: @color;
-  }
-}
-//----------------------【其他】-----------------------------------
 .ophover:active{
   opacity: .6;
 }
