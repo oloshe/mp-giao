@@ -1,6 +1,7 @@
-import { formatTime, useStorage, getRandomColor, createInnerAudioContext } from "../../utils/util"
+/// <reference path="../../../global.d.ts" />
 // 默认颜色
-const colorList = Object.freeze(['#E54D42','#F37B1D','#FBBD08', '#8DC63F','#1CBBB4'])
+const colorList = ['#E54D42', '#F37B1D', '#FBBD08', '#8DC63F', '#1CBBB4']
+Object.freeze(colorList)
 
 
 export { }
@@ -34,18 +35,18 @@ Component<IData, {}, IMethod>({
                     'MM/DD hh:mm',
                     'hh:mm DD/MM/YYYY',
                 ]
-            const timeStringList = formatList.map(f => formatTime(timestamp, f))
+            const timeStringList = formatList.map(f => global.util.formatTime(timestamp, f))
             this.setData({ timeStringList })
 
             // useStorage 使用本地存储
             // usage1
-            const colors = useStorage(this.data, {
+            const colors = global.util.useStorage(this.data, {
                 key: 'colors',
                 propKey: 'colorList',
                 defaultValue: [...colorList],
             })
             // usage2
-            const selectedIndex = useStorage(this, {
+            const selectedIndex = global.util.useStorage(this, {
                 key: 'selectedIndex',
                 defaultValue: -1,
             }, index => {
@@ -55,61 +56,61 @@ Component<IData, {}, IMethod>({
             })
             this.setData({ colorList: colors, selectedIndex })
 
-            // createInnerAudioContext 创建音频
-            ;(this as any).sound1 = createInnerAudioContext({
-                src: '/asset/1gwlgg.wav',
-                onPlay: () => {
-                    console.log('一giao我哩giao giao')
-                    this.setData({
-                        sound1_on: true,
-                    })
-                },
-                onEnded: () => {
-                    console.log('giao完了')
-                    this.setData({
-                        sound1_on: false,
-                    })
-                },
-                onTimeUpdate: () => {
-                    const progress = (this as any).sound1.currentTime / (this as any).sound1.duration * 100
-                    console.log(progress)
-                }
-            })
-            ;(this as any).sound2 = createInnerAudioContext({
-                src: '/asset/huhuo.wav',
-                onPlay: () => {
-                    console.log('唬嚯')
-                    this.setData({
-                        sound2_on: true,
-                    })
-                },
-                onEnded: () => {
-                    this.setData({
-                        sound2_on: false,
-                    })
-                },
-            })
-            ;(this as any).sound3 = createInnerAudioContext({
-                src: '/asset/yahu.wav',
-                onPlay: () => {
-                    console.log('呀呼')
-                    this.setData({
-                        sound3_on: true,
-                    })
-                },
-                onEnded: () => {
-                    this.setData({
-                        sound3_on: false,
-                    })
-                },
-            })
+                // createInnerAudioContext 创建音频
+                ; (this as any).sound1 = global.util.createInnerAudioContext({
+                    src: '/asset/1gwlgg.wav',
+                    onPlay: () => {
+                        console.log('一giao我哩giao giao')
+                        this.setData({
+                            sound1_on: true,
+                        })
+                    },
+                    onEnded: () => {
+                        console.log('giao完了')
+                        this.setData({
+                            sound1_on: false,
+                        })
+                    },
+                    onTimeUpdate: () => {
+                        const progress = (this as any).sound1.currentTime / (this as any).sound1.duration * 100
+                        console.log(progress)
+                    }
+                })
+                ; (this as any).sound2 = global.util.createInnerAudioContext({
+                    src: '/asset/huhuo.wav',
+                    onPlay: () => {
+                        console.log('唬嚯')
+                        this.setData({
+                            sound2_on: true,
+                        })
+                    },
+                    onEnded: () => {
+                        this.setData({
+                            sound2_on: false,
+                        })
+                    },
+                })
+                ; (this as any).sound3 = global.util.createInnerAudioContext({
+                    src: '/asset/yahu.wav',
+                    onPlay: () => {
+                        console.log('呀呼')
+                        this.setData({
+                            sound3_on: true,
+                        })
+                    },
+                    onEnded: () => {
+                        this.setData({
+                            sound3_on: false,
+                        })
+                    },
+                })
         },
-        onUnload(){
-            
+        onUnload() {
+
         },
-        onPlaySound(e: any){
-            const {target} = e.currentTarget.dataset
-            ;(this[target] as any)?.play()
+        onPlaySound(e: any) {
+            const { target } = e.currentTarget.dataset
+                ; (this[target] as any)?.play()
         },
         /** 色块触摸事件 */
         onColorTap(e: any) {
@@ -139,23 +140,13 @@ Component<IData, {}, IMethod>({
         },
         /** 添加随机颜色 */
         addRandomColor() {
-            const color = getRandomColor().toUpperCase()
+            const color = global.util.getRandomColor().toUpperCase()
             console.log(color)
             this.data.colorList?.push(color)
-                && this.setData({ 
-                    colorList: this.data.colorList, 
-                    colorView: `color-${this.data.colorList.length - 1}` 
+                && this.setData({
+                    colorList: this.data.colorList,
+                    colorView: `color-${this.data.colorList.length - 1}`
                 })
-        },
-        select() {
-            const fn = () => {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve('giao')
-                    }, 3000)
-                })
-            }
-            fn()
         },
     }
 })

@@ -11,7 +11,6 @@
  * 其中 `errcode === 0` 时表示接口正常，其他值表示异常或错误。
  */
 
-
 /**
  * 云函数响应体
  */
@@ -24,7 +23,7 @@ interface Response<T> {
  * 云计划
  * 用于指定一个云函数运行之后对于结果的各种处理
  */
-class CloudScheme<T>{
+export class CloudScheme<T>{
 
     protected onSuccess: Function
 
@@ -94,7 +93,7 @@ class CloudScheme<T>{
 /**
  * 私有云计划
  */
-class PrivateCloudScheme<T> extends CloudScheme<T>{
+export class PrivateCloudScheme<T> extends CloudScheme<T>{
     constructor() {
         super()
     }
@@ -155,10 +154,7 @@ class PrivateCloudScheme<T> extends CloudScheme<T>{
  *      错误码为其他的时候
  *  })
  */
-export function callFunction<
-    T extends {},
-    DataType extends {},
-    >(model: string, func: string, data?: DataType): CloudScheme<T> {
+export function callFunction<T, DataType>(model: string, func: string, data?: DataType): CloudScheme<T> {
     const cloudResult = new PrivateCloudScheme<T>()
     wx.cloud.callFunction({
         name: model,
@@ -187,31 +183,54 @@ export function callFunction<
 
 /**
  * 模块
- * 此处定义云函数的各个模块的枚举
- * 使用枚举有诸多好处
- * 如果不使用枚举可以替换成string
  */
-export const MODEL = {
-    USER: 'USER'
-}
+export const MODEL = Object.freeze({
+    /** 项目模块  */
+    PROJECT: 'PROJECT',
+
+    /** 用户模块  */
+    USER: 'USER',
+
+    /** 用户行为 */
+    USER_ACTION: 'USER_ACTION',
+})
 
 /**
  * 函数
- * 此处定义云函数的各个模块下的方法的方法名
- * 如果不使用这种方式可以替换成string
  */
-export const FUNC = {
+export const FUNC = Object.freeze({
+    /** 项目模块  */
+    PROJECT: {
+        /** 增 */
+        ADD: 'ADD',
+        /** 删 */
+        DELETE: 'DELETE',
+        /** 改 */
+        MODIFY: 'MODIFY',
+        /** 查 */
+        GET: 'GET',
+        /** 浏览 */
+        GET_LIST: 'GET_LIST',
+    },
     /** 用户模块  */
     USER: {
         /** 签到 */
         SIGN: 'SIGN',
+        /** 修改信息  */
+        MODIFY: 'MODIFY',
     },
-}
-
+    /** 用户行为 */
+    USER_ACTION: {
+        /** 关注  */
+        FOLLOW: 'FOLLOW',
+        /** 取消关注 */
+        UN_FOLLOW: 'UN_FOLLOW',
+    }
+})
 
 /*
 // 用法样例
-interface IResponse {
+interface ISignResponse {
     type: number
     value: number
 }
@@ -220,7 +239,7 @@ interface IParam {
 }
 // 1. 直接使用 callFunction(...) 则没有类型的约束
 // 2. 使用 callFunction<type1, type2>(...) 分别对响应体数据和参数做了类型约束
-callFunction<IResponse, IParam>(MODEL.USER, FUNC.USER.SIGN, { arg: 1 })
+callFunction<ISignResponse, IParam>(MODEL.USER, FUNC.USER.SIGN, { arg: 1 })
     .onComplete(() => {
         //完成时执行该回调，不管错误码是多少！而且总是第一个执行
         console.log('完成')

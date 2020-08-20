@@ -1,10 +1,6 @@
 /// <reference path="../../../global.d.ts" />
 
 export { }
-// 获取应用实例
-const app = getApp<IAppOption>()
-
-export {}
 
 interface IData {
   title: string
@@ -33,7 +29,7 @@ Component<IData, {}, IMethod>({
     title: 'mp-giao',
     intro: '小程序快速启动项目',
     desc: '如果你想创建一个小程序项目又不想应付麻烦的配置，clone 这个项目，给你开箱即用的体验。',
-    systemInfo: app.systemInfo,
+    systemInfo: global.systemInfo,
     intros: [
       {
         name: 'utils - demo',
@@ -72,7 +68,7 @@ Component<IData, {}, IMethod>({
       wx.navigateTo({
         url: this.data.intros[index].path,
         complete: () => {
-          ;(this as any).nav = false
+          (this as any).nav = false
           setTimeout(() => {
             this.setData({
               [`intros[${index}].animate`]: false,
